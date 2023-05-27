@@ -199,6 +199,8 @@ sudo iotedge check
 
 In this scenario, the check tool will present only one error, while connectivity remains ok:
 
+<img src=".assets/error2.png" width=600 />
+
 <img src=".assets/connectivity1.png" width=600 />
 
 To re-register the device:
