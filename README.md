@@ -130,3 +130,7 @@ sudo iotedge check
 This test demonstrates that even when blocking all traffic, including the built-in endpoint, the check tool will give it OK ✅ for all checks.
 
 <img src=".assets/connectivity1.png" width=600 />
+
+After restarting the VM, one error was shown on configuration:
+
+<img src=".assets/error1.png" width=600 />
