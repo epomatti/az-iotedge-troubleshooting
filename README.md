@@ -55,12 +55,15 @@ bash bash scripts/registerEdgeGatewayDevice.sh
 
 ### 7 - Upload Edge config
 
+This will upload the required files to the EdgeGateway:
+
 ```
 bash scripts/uploadEdgeConfig.sh
 ```
 
-
 ### 8 - Run the config in the EdgeGateway
+
+Connect to the EdgeGateway and complete the configuration:
 
 ```sh
 # Run via SSH
@@ -73,6 +76,8 @@ sudo iotedge check
 ```
 
 ### 9 - Deploy the modules
+
+Trigger the first module deployment:
 
 ```sh
 az iot edge deployment create --deployment-id "gateway" \
