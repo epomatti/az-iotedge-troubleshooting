@@ -4,7 +4,7 @@ Troubleshooting IoT Edge connectivity and configuration.
 
 <img src=".assets/tshoot.png" width=550 />
 
-## 1 - Infrastructure
+## 1 - Create the infrastructure
 
 Generate the certificate chain:
 
@@ -12,7 +12,7 @@ Generate the certificate chain:
 bash scripts/generateCerts.sh
 ```
 
-Create the infrastructure:
+Create the infrastructure resources:
 
 ```sh
 terraform -chdir="infra" init
@@ -46,39 +46,39 @@ Restart the VM to activate any Linux kernel updates:
 az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
 ```
 
-### 5 - Register the IoT Edge device:
+## 2 - Register the IoT Edge device
 
-> ⚠️ IoT Hub allows only IoT Edge devices with self-signed (thumbprint) method. For CA-Signed, you [must use Device Provisioning Service](https://github.com/MicrosoftDocs/azure-docs/issues/108363).
+Run the script to create the IoT Hub device registration:
+
+> ⚠️ IoT Hub supports registering IoT Edge devices only through self-signed method (certificate thumbprint). For a CA-Signed configuration, you must implement device enrollment with DPS. See [this issue](https://github.com/MicrosoftDocs/azure-docs/issues/108363) for details.
 
 ```sh
-bash bash scripts/registerEdgeGatewayDevice.sh
+bash scripts/registerEdgeGatewayDevice.sh
 ```
 
-### 6 - Upload Edge config
-
-This will upload the required files to the EdgeGateway:
+Upload the required configuration files to the EdgeGateway device:
 
 ```
 bash scripts/uploadEdgeConfig.sh
 ```
 
-### 7 - Run the config in the EdgeGateway
-
-Connect to the EdgeGateway and complete the configuration:
+Connect with SSH to the EdgeGateway and execute the configuration
 
 ```sh
-# Run via SSH
 sudo bash edgeConfig.sh
+```
 
-# Verify the results
+Verify the results:
+
+```sh
 sudo iotedge system status
 sudo iotedge system logs
 sudo iotedge check
 ```
 
-### 8 - Deploy the modules
+## 3 - Deploy the modules
 
-Trigger the first module deployment:
+Now that the device is properly registered and connect with IoT Hub, create a deployment:
 
 ```sh
 az iot edge deployment create --deployment-id "gateway" \
@@ -89,9 +89,8 @@ az iot edge deployment create --deployment-id "gateway" \
     --priority 10
 ```
 
-Check the portal and the IoT device:
+To check the deployment in the EdgeGateway device:
 
 ```sh
-# List the modules in the Azure VM
 iotedge list
 ```
