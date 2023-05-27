@@ -262,7 +262,7 @@ It is possible to identify several failures for this test.
 
 Running the checks with `--verbose` will reveal the timeout details:
 
-<img src=".assets/nsg_error_verbose.png" width=600 />
+<img src=".assets/nsg_error_verbose.png" width=800 />
 
 Recreate the rule to proceed with the remaining tests:
 
