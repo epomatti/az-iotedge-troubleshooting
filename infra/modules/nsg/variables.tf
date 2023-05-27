@@ -1,4 +1,4 @@
-variable "app" {
+variable "workload" {
   type = string
 }
 

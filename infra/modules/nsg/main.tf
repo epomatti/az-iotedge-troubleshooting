@@ -1,7 +1,7 @@
 # https://learn.microsoft.com/en-us/azure/iot-edge/production-checklist?view=iotedge-1.4#allow-connections-from-iot-edge-devices
 
 resource "azurerm_network_security_group" "edgegateway_allow_ssh" {
-  name                = "nsg-${var.app}-edgegateway"
+  name                = "nsg-${var.workload}-edgegateway"
   location            = var.location
   resource_group_name = var.group
 
