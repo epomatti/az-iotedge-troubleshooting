@@ -1,0 +1,53 @@
+# ==============================================================================
+# Hostname
+# ==============================================================================
+
+hostname = "edgegateway.bluefactory.local"
+
+
+# ==============================================================================
+# Trust bundle cert
+# ==============================================================================
+
+trust_bundle_cert = "file:///var/secrets/aziot/azure-iot-test-only.root.ca.cert.pem"
+
+
+# Provisioning configuration
+# --------------------------
+
+# Manual provisioning with X.509 certificate
+[provisioning]
+source = "manual"
+iothub_hostname = "IOTHUB_HOSTNAME"
+device_id = "DEVICE_ID"
+
+[provisioning.authentication]
+method = "x509"
+
+# identity certificate private key
+identity_pk = "file:///var/secrets/aziot/iot-edge-device-identity-edgegateway.bluefactory.local.key.pem"
+
+# identity certificate
+identity_cert = "file:///var/secrets/aziot/iot-edge-device-identity-edgegateway.bluefactory.local-full-chain.cert.pem"
+
+# TODO: Do it with local CA
+
+# [provisioning.authentication.identity_cert]                        # dynamically issued via...
+# method = "est"                                                     # - EST
+# method = "local_ca"                                                # - a local CA
+# common_name = "my-device"                                          # with the given common name, or...
+# subject = { L = "AQ", ST = "Antarctica", CN = "my-device" }        # with the given DN fields
+
+
+# ==============================================================================
+# Edge CA certificate
+# ==============================================================================
+
+# Edge CA certificate loaded from a file:
+# ---------------------
+
+[edge_ca]
+cert = "file:///var/secrets/aziot/iot-edge-device-ca-edgeca.fusiontech.iot-full-chain.cert.pem"
+pk = "file:///var/secrets/aziot/iot-edge-device-ca-edgeca.fusiontech.iot.key.pem"
+
+# TODO: Auto-renew for Edge CA
