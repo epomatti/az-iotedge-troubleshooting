@@ -6,7 +6,7 @@ Troubleshooting IoT Edge connectivity and configuration.
 
 ## 1 - Create the infrastructure
 
-Generate the certificate chain:
+Generate the test-only certificate chain:
 
 ```sh
 bash scripts/generateCerts.sh
