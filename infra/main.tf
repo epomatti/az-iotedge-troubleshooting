@@ -64,27 +64,28 @@ module "nsg" {
 }
 
 ### Edge Gateway ###
-# module "edgegateway" {
-#   source           = "./modules/edgegateway"
-#   group            = azurerm_resource_group.default.name
-#   location         = azurerm_resource_group.default.location
-#   workload         = var.workload
-#   subnet           = module.network.subnet_id
-#   edgegateway_size = var.vm_edgegateway_size
-# }
+module "edgegateway" {
+  source           = "./modules/edgegateway"
+  group            = azurerm_resource_group.default.name
+  location         = azurerm_resource_group.default.location
+  workload         = var.workload
+  subnet           = module.network.subnet_id
+  edgegateway_size = var.vm_edgegateway_size
+  zone_name        = module.network.zone_name
+}
 
 
-# ### Output JSON ###
+### JSON Output ###
 
-# resource "local_file" "config" {
-#   content = jsonencode(
-#     {
-#       "edgegateway_publicip" : "${azurerm_public_ip.edgegateway.ip_address}",
-#       "iothub_name" : "${azurerm_iothub.default.name}",
-#       "resource_group_name" : "${azurerm_resource_group.default.name}",
-#       "root_ca_name" : "${azurerm_iothub_dps_certificate.default.name}",
-#       "iothub_hostname" : "${azurerm_iothub.default.hostname}",
-#     }
-#   )
-#   filename = "output.json"
-# }
+resource "local_file" "config" {
+  content = jsonencode(
+    {
+      "edgegateway_ip" : "${module.edgegateway.public_ip}",
+      "iothub_name" : "${module.iothub.name}",
+      "resource_group_name" : "${azurerm_resource_group.default.name}",
+      "root_ca_name" : "${module.iothub.certificate_name}",
+      "iothub_hostname" : "${module.iothub.hostname}",
+    }
+  )
+  filename = "output.json"
+}

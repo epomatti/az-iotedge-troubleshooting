@@ -1,6 +1,6 @@
 resource "azurerm_public_ip" "edgegateway" {
   name                = "pip-${var.workload}-edgegateway"
-  resource_group_name = var.workload
+  resource_group_name = var.group
   location            = var.location
   allocation_method   = "Static"
 }
@@ -8,7 +8,7 @@ resource "azurerm_public_ip" "edgegateway" {
 resource "azurerm_network_interface" "edgegateway" {
   name                = "nic-${var.workload}-edgegateway"
   location            = var.location
-  resource_group_name = var.workload
+  resource_group_name = var.group
 
   ip_configuration {
     name                          = "dns"
@@ -24,7 +24,7 @@ resource "azurerm_network_interface" "edgegateway" {
 
 resource "azurerm_linux_virtual_machine" "edgegateway" {
   name                  = "vm-${var.workload}-edgegateway"
-  resource_group_name   = var.workload
+  resource_group_name   = var.group
   location              = var.location
   size                  = var.edgegateway_size
   admin_username        = "edgegateway"
@@ -61,7 +61,7 @@ resource "azurerm_linux_virtual_machine" "edgegateway" {
 resource "azurerm_private_dns_cname_record" "edgegateway" {
   name                = "edgegateway"
   zone_name           = var.zone_name
-  resource_group_name = var.workload
+  resource_group_name = var.group
   ttl                 = 300
-  record              = "${azurerm_linux_virtual_machine.edgegateway.name}.${local.private_zone_domain}."
+  record              = "${azurerm_linux_virtual_machine.edgegateway.name}.${var.zone_name}."
 }
