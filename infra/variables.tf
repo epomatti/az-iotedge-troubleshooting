@@ -5,7 +5,7 @@ variable "workload" {
 
 variable "location" {
   type    = string
-  default = "eastus2"
+  default = "westus2"
 }
 
 variable "iothub_sku_name" {

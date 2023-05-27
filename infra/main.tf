@@ -45,40 +45,14 @@ module "iothub" {
 }
 
 ### Network ###
+module "network" {
+  source              = "./modules/network"
+  workload            = var.workload
+  group               = local.group
+  location            = local.location
+  private_zone_domain = local.private_zone_domain
+}
 
-# resource "azurerm_virtual_network" "default" {
-#   name                = "vnet-${var.app}"
-#   address_space       = ["10.0.0.0/16"]
-#   location            = var.location
-#   resource_group_name = var.workload
-# }
-
-# resource "azurerm_subnet" "default" {
-#   name                 = "subnet-default"
-#   resource_group_name  = var.workload
-#   virtual_network_name = azurerm_virtual_network.default.name
-#   address_prefixes     = ["10.0.1.0/24"]
-# }
-
-# resource "azurerm_subnet" "downstream" {
-#   name                 = "subnet-downstream"
-#   resource_group_name  = var.workload
-#   virtual_network_name = azurerm_virtual_network.default.name
-#   address_prefixes     = ["10.0.90.0/24"]
-# }
-
-# resource "azurerm_private_dns_zone" "default" {
-#   name                = local.private_zone_domain
-#   resource_group_name = var.workload
-# }
-
-# resource "azurerm_private_dns_zone_virtual_network_link" "default" {
-#   name                  = "edge-network-link"
-#   resource_group_name   = var.workload
-#   private_dns_zone_name = azurerm_private_dns_zone.default.name
-#   virtual_network_id    = azurerm_virtual_network.default.id
-#   registration_enabled  = true
-# }
 
 # ### Network Security Group ###
 
