@@ -327,3 +327,8 @@ TODO: Fail with DNS
 
 TODO: Change IP forwarding
 
+
+## Utilities
+
+- [Several IoT Edge utilities](https://sandervandevelde.wordpress.com/category/docker/)
+- [IoT ELMS](https://github.com/Azure-Samples/iotedge-logging-and-monitoring-solution)
