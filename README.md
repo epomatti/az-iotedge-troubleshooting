@@ -109,11 +109,15 @@ All connectivity checks should be:
 
 ## Troubleshooting
 
-### Restricted Public Access
+### Restrict Public Access
 
 Connect to the Portal and disable public access. Do not yet apply to the built-in endpoint. Run the check:
 
 ```sh
+# Restart
+sudo iotedge system restart
+
+# Check
 sudo iotedge check
 ```
 
@@ -124,6 +128,10 @@ Now apply turn-on the toggle to apply to the built-in endpoint.
 Run the check:
 
 ```sh
+# Restart
+sudo iotedge system restart
+
+# Check
 sudo iotedge check
 ```
 
@@ -134,3 +142,42 @@ This test demonstrates that even when blocking all traffic, including the built-
 After restarting the VM, one error was shown on configuration:
 
 <img src=".assets/error1.png" width=600 />
+
+### Remove Root Certificate
+
+Let's try removing the Root certificate in this example:
+
+```sh
+# Get the "etag"
+etag=$(az iot hub certificate list --hub-name iot-bluefactory --query value[0].[etag] -o tsv)
+
+# Delete the certificate
+az iot hub certificate delete --hub-name iot-bluefactory --name TerraformRootCA --etag $etag
+```
+
+Restart and run the check:
+
+```sh
+# Restart
+sudo iotedge system restart
+
+# Check
+sudo iotedge check
+```
+
+It was possible to demonstrate that no impact occurred when removing the main certificate:
+
+<img src=".assets/connectivity1.png" width=600 />
+
+Re-create the certificate:
+
+```sh
+# Create the certificate
+az iot hub certificate create --hub-name iot-bluefactory --name TerraformRootCA --path ./openssl/certs/azure-iot-test-only.root.ca.cert.pem --verified
+
+# Restart
+sudo iotedge system restart
+
+# Check
+sudo iotedge check
+```
