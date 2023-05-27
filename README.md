@@ -103,13 +103,15 @@ Check and confirm that everything is OK:
 sudo iotedge check
 ```
 
+All connectivity checks should be:
+
+<img src=".assets/connectivity1.png" width=600 />
+
 ## Troubleshooting
 
 ### Restricted Public Access
 
-Connect to the Portal and disable public access. Do not yet apply to the built-in endpoint.
-
-Run the check:
+Connect to the Portal and disable public access. Do not yet apply to the built-in endpoint. Run the check:
 
 ```sh
 sudo iotedge check
@@ -117,8 +119,14 @@ sudo iotedge check
 
 Now apply turn-on the toggle to apply to the built-in endpoint.
 
+<img src=".assets/all_blocked.png" width=600 />
+
 Run the check:
 
 ```sh
 sudo iotedge check
 ```
+
+This test demonstrates that even blocking all traffic, including the built-in endpoint, the check tool will still be OK ✅ for all checks.
+
+<img src=".assets/connectivity1.png" width=600 />
