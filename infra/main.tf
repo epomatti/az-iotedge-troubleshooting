@@ -36,9 +36,12 @@ module "acr" {
 
 ### IoT Hub ###
 module "iothub" {
-  source   = "./modules/iothub"
-  group    = local.group
-  location = local.location
+  source       = "./modules/iothub"
+  workload     = var.workload
+  group        = local.group
+  location     = local.location
+  sku_name     = var.iothub_sku_name
+  sku_capacity = var.iothub_sku_capacity
 }
 
 ### Network ###

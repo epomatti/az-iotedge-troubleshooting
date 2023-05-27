@@ -5,8 +5,8 @@ resource "azurerm_iothub" "default" {
   min_tls_version     = "1.2"
 
   sku {
-    name     = var.iothub_sku_name
-    capacity = var.iothub_sku_capacity
+    name     = var.sku_name
+    capacity = var.sku_capacity
   }
 }
 
