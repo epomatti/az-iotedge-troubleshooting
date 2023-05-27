@@ -37,15 +37,7 @@ iotedge --version
 az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
 ```
 
-### 5 - Add the DNS registry
-
-Changing the hostname requires a DNS registry:
-
-```sh
-az network private-dns record-set a add-record -g rg-bluefactory -z bluefactory.local -n edgegateway.bluefactory.local -a "10.0.90.4"
-```
-
-### 6 - Register the IoT Edge device:
+### 5 - Register the IoT Edge device:
 
 > ⚠️ IoT Hub allows only IoT Edge devices with self-signed (thumbprint) method. For CA-Signed, you [must use Device Provisioning Service](https://github.com/MicrosoftDocs/azure-docs/issues/108363).
 
@@ -53,7 +45,7 @@ az network private-dns record-set a add-record -g rg-bluefactory -z bluefactory.
 bash bash scripts/registerEdgeGatewayDevice.sh
 ```
 
-### 7 - Upload Edge config
+### 6 - Upload Edge config
 
 This will upload the required files to the EdgeGateway:
 
@@ -61,7 +53,7 @@ This will upload the required files to the EdgeGateway:
 bash scripts/uploadEdgeConfig.sh
 ```
 
-### 8 - Run the config in the EdgeGateway
+### 7 - Run the config in the EdgeGateway
 
 Connect to the EdgeGateway and complete the configuration:
 
@@ -75,7 +67,7 @@ sudo iotedge system logs
 sudo iotedge check
 ```
 
-### 9 - Deploy the modules
+### 8 - Deploy the modules
 
 Trigger the first module deployment:
 

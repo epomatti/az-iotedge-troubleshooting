@@ -58,10 +58,10 @@ resource "azurerm_linux_virtual_machine" "edgegateway" {
   }
 }
 
-resource "azurerm_private_dns_cname_record" "edgegateway" {
-  name                = "edgegateway"
+resource "azurerm_private_dns_a_record" "edgegateway" {
+  name                = "edgegateway.bluefactory.local"
   zone_name           = var.zone_name
   resource_group_name = var.group
-  ttl                 = 300
-  record              = "${azurerm_linux_virtual_machine.edgegateway.name}.${var.zone_name}."
+  ttl                 = 3600
+  records             = [azurerm_network_interface.edgegateway.private_ip_address]
 }
