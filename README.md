@@ -20,10 +20,8 @@ terraform -chdir="infra" apply -auto-approve
 ```
 
 <details>
-  <summary>(Optional) Upgrade IoT Hub certificate to V2</summary>
-  
-  Migrate the IoT Hub to use DigiCert G2 root:
-  
+  <summary>(Optional) Upgrade IoT Hub certificate to V2 (DigiCert)</summary>
+    
   ```sh
   az iot hub certificate root-authority set --hub-name "iot-bluefactory" --certificate-authority v2 --yes
   ```
