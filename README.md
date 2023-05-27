@@ -258,12 +258,19 @@ It is possible to identify several failures for this test.
 
 <img src=".assets/nsg_error3.png" width=600 />
 
-Recreate the rule:
+<img src=".assets/nsg_error4.png" width=600 />
+
+Running the checks with `--verbose` will reveal the timeout details:
+
+<img src=".assets/nsg_error_verbose.png" width=600 />
+
+Recreate the rule to proceed with the remaining tests:
 
 ```sh
 # Create the IoT Edge rule
 az network nsg rule create -g rg-bluefactory --nsg-name nsg-bluefactory-edgegateway -n AllowIoTEdge \
     --priority 110 \
+    --direction "Outbound" \
     --source-address-prefixes '*' \
     --source-port-ranges '*' \
     --destination-address-prefixes '*' \
@@ -278,3 +285,7 @@ sudo iotedge system restart
 # Check
 sudo iotedge check
 ```
+
+### Origin restriction
+
+
