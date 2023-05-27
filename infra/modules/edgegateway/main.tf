@@ -26,7 +26,7 @@ resource "azurerm_linux_virtual_machine" "edgegateway" {
   name                  = "vm-${var.workload}-edgegateway"
   resource_group_name   = var.group
   location              = var.location
-  size                  = var.edgegateway_size
+  size                  = var.vm_size
   admin_username        = "edgegateway"
   admin_password        = "P@ssw0rd.123"
   network_interface_ids = [azurerm_network_interface.edgegateway.id]
@@ -46,9 +46,9 @@ resource "azurerm_linux_virtual_machine" "edgegateway" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
-    version   = "latest"
+    offer     = var.image_offer
+    sku       = var.image_sku
+    version   = var.image_version
   }
 
   lifecycle {

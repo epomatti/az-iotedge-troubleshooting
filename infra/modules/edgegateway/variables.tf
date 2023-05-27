@@ -18,6 +18,18 @@ variable "zone_name" {
   type = string
 }
 
-variable "edgegateway_size" {
+variable "vm_size" {
+  type = string
+}
+
+variable "image_offer" {
+  type = string
+}
+
+variable "image_sku" {
+  type = string
+}
+
+variable "image_version" {
   type = string
 }

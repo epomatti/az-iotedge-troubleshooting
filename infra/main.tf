@@ -65,18 +65,19 @@ module "nsg" {
 
 ### Edge Gateway ###
 module "edgegateway" {
-  source           = "./modules/edgegateway"
-  group            = azurerm_resource_group.default.name
-  location         = azurerm_resource_group.default.location
-  workload         = var.workload
-  subnet           = module.network.subnet_id
-  edgegateway_size = var.vm_edgegateway_size
-  zone_name        = module.network.zone_name
+  source        = "./modules/edgegateway"
+  group         = azurerm_resource_group.default.name
+  location      = azurerm_resource_group.default.location
+  workload      = var.workload
+  subnet        = module.network.subnet_id
+  zone_name     = module.network.zone_name
+  vm_size       = var.edgegateway_vm_size
+  image_offer   = var.edgegateway_image_offer
+  image_sku     = var.edgegateway_image_sku
+  image_version = var.edgegateway_image_version
 }
 
-
 ### JSON Output ###
-
 resource "local_file" "config" {
   content = jsonencode(
     {
