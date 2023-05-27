@@ -1,25 +1,33 @@
 # Azure IoT Edge Troubleshooting
 
-### 1 - Generate the certificate chain:
+Troubleshooting IoT Edge connectivity and configuration.
+
+<img src=".assets/tshoot.png" width=550 />
+
+## 1 - Infrastructure
+
+Generate the certificate chain:
 
 ```sh
 bash scripts/generateCerts.sh
 ```
 
-### 2 - Create the infrastructure:
+Create the infrastructure:
 
 ```sh
 terraform -chdir="infra" init
 terraform -chdir="infra" apply -auto-approve
 ```
 
-### 3 - (Optional) Migrate the IoT Hub to use DigiCert G2 root:
-
-```sh
-az iot hub certificate root-authority set --hub-name "iot-bluefactory" --certificate-authority v2 --yes
-```
-
-### 4 - Device check
+<details>
+  <summary>(Optional) Upgrade IoT Hub certificate to V2</summary>
+  
+  Migrate the IoT Hub to use DigiCert G2 root:
+  
+  ```sh
+  az iot hub certificate root-authority set --hub-name "iot-bluefactory" --certificate-authority v2 --yes
+  ```
+</details>
 
 Make sure the EdgeGateway has completed the installation:
 
@@ -32,8 +40,11 @@ cloud-init status
 
 # Confirm that the IoT Edge runtime has been installed
 iotedge --version
+```
 
-# Restart the VM to activate any Linux kernel updates
+Restart the VM to activate any Linux kernel updates:
+
+```sh
 az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
 ```
 
