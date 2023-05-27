@@ -54,15 +54,14 @@ module "network" {
 }
 
 
-# ### Network Security Group ###
-
-# module "nsg" {
-#   source   = "./modules/nsg"
-#   group    = var.workload
-#   location = var.location
-#   app      = var.app
-#   subnet   = azurerm_subnet.default.id
-# }
+### Network Security Group ###
+module "nsg" {
+  source   = "./modules/nsg"
+  group    = local.group
+  location = local.location
+  workload = var.workload
+  subnet   = module.network.subnet_id
+}
 
 # ### Iot Edge ###
 
