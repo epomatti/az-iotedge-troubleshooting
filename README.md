@@ -252,11 +252,11 @@ It is possible to identify several failures for this test.
 
 > ℹ️ One aspect of this test is that the test takes a lot of time due to timeout for each connection
 
-<img src=".assets/nsg_error1.png" width=500 />
+<img src=".assets/nsg_error1.png" width=600 />
 
-<img src=".assets/nsg_error2.png" width=500 />
+<img src=".assets/nsg_error2.png" width=600 />
 
-<img src=".assets/nsg_error3.png" width=500 />
+<img src=".assets/nsg_error3.png" width=600 />
 
 Recreate the rule:
 
