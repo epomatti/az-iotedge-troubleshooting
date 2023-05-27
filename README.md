@@ -127,6 +127,6 @@ Run the check:
 sudo iotedge check
 ```
 
-This test demonstrates that even blocking all traffic, including the built-in endpoint, the check tool will still be OK ✅ for all checks.
+This test demonstrates that even when blocking all traffic, including the built-in endpoint, the check tool will give it OK ✅ for all checks.
 
 <img src=".assets/connectivity1.png" width=600 />
