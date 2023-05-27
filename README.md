@@ -45,4 +45,21 @@ az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
 bash bash scripts/registerEdgeGatewayDevice.sh
 ```
 
-### 6 - 
+### 6 - Upload Edge config
+
+```
+bash scripts/uploadEdgeConfig.sh
+```
+
+
+### 7 - Run the config in the EdgeGateway
+
+```sh
+# Run via SSH
+sudo bash edgeconfig.sh
+
+# Verify the results
+sudo iotedge system status
+sudo iotedge system logs
+sudo iotedge check
+```

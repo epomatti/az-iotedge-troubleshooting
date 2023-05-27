@@ -30,6 +30,8 @@ scp "$local_certs/iot-edge-device-ca-edgeca.$domain-full-chain.cert.pem" "edgega
 scp "$local_private_keys/iot-edge-device-ca-edgeca.$domain.key.pem" "edgegateway@$remote_edgegateway_ip:$remote_target_dir"
 
 # IoT Edge
+rm -f edgegateway/config.toml
+
 cp edgegateway/config-template.toml edgegateway/config.toml
 sed -i "s/IOTHUB_HOSTNAME/$iothub_hostname/g" edgegateway/config.toml
 sed -i "s/DEVICE_ID/$device_id/g" edgegateway/config.toml

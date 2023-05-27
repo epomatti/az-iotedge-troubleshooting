@@ -47,7 +47,7 @@ identity_cert = "file:///var/secrets/aziot/iot-edge-device-identity-edgegateway.
 # ---------------------
 
 [edge_ca]
-cert = "file:///var/secrets/aziot/iot-edge-device-ca-edgeca.fusiontech.iot-full-chain.cert.pem"
-pk = "file:///var/secrets/aziot/iot-edge-device-ca-edgeca.fusiontech.iot.key.pem"
+cert = "file:///var/secrets/aziot/iot-edge-device-ca-edgeca.bluefactory.local-full-chain.cert.pem"
+pk = "file:///var/secrets/aziot/iot-edge-device-ca-edgeca.bluefactory.local.key.pem"
 
 # TODO: Auto-renew for Edge CA
