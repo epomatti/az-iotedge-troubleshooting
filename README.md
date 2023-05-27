@@ -12,7 +12,7 @@ Generate the certificate chain:
 bash scripts/generateCerts.sh
 ```
 
-Create the infrastructure resources:
+Deploy the resources:
 
 ```sh
 terraform -chdir="infra" init
