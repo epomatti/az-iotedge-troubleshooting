@@ -264,6 +264,10 @@ Running the checks with `--verbose` will reveal the timeout details:
 
 <img src=".assets/nsg_error_verbose.png" width=800 />
 
+Running telnet will achieve the same result:
+
+<img src=".assets/telnet_timeout.png" width=500 />
+
 Recreate the rule to proceed with the remaining tests:
 
 ```sh
