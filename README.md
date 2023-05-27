@@ -4,7 +4,9 @@ Troubleshooting IoT Edge connectivity and configuration.
 
 <img src=".assets/tshoot.png" width=550 />
 
-## 1 - Create the infrastructure
+## Infrastructure
+
+### 1 - Create the infrastructure
 
 Generate the test-only certificate chain:
 
@@ -46,7 +48,7 @@ Restart the VM to activate any Linux kernel updates:
 az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
 ```
 
-## 2 - Register the IoT Edge device
+### 2 - Register the IoT Edge device
 
 Run the script to create the IoT Hub device registration:
 
@@ -76,7 +78,7 @@ sudo iotedge system logs
 sudo iotedge check
 ```
 
-## 3 - Deploy the modules
+### 3 - Deploy the modules
 
 Now that the device is properly registered and connect with IoT Hub, create a deployment:
 
@@ -94,3 +96,7 @@ To check the deployment in the EdgeGateway device:
 ```sh
 iotedge list
 ```
+
+## Troubleshooting
+
+
