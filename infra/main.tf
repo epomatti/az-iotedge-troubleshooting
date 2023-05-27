@@ -24,7 +24,7 @@ locals {
 
 ### Group ###
 resource "azurerm_resource_group" "default" {
-  name     = "rg${var.workload}"
+  name     = "rg-${var.workload}"
   location = var.location
 }
 
