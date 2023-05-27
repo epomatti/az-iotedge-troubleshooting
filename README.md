@@ -238,11 +238,8 @@ This test will demonstrate the results when outgoing connectivity is blocked in 
 Delete the IoT Edge outbound allow rule in the NSG:
 
 ```sh
-# Delete rule
+# Delete the rule
 az network nsg rule delete -g rg-bluefactory --nsg-name nsg-bluefactory-edgegateway -n AllowIoTEdge
-
-# Restart
-sudo iotedge system restart
 
 # Check
 sudo iotedge check
@@ -283,13 +280,43 @@ az network nsg rule create -g rg-bluefactory --nsg-name nsg-bluefactory-edgegate
     --protocol "Tcp" \
     --description "Allows IoT Edge connectivity ports."
 
-# Restart
-sudo iotedge system restart
-
 # Check
 sudo iotedge check
 ```
 
 ### Origin restriction
 
+Now let's change the origin parameters to DENY immediately:
 
+```sh
+# Create a DENY rule with priority 101
+az network nsg rule create -g rg-bluefactory --nsg-name nsg-bluefactory-edgegateway -n DenyIoTEdge \
+    --priority 101 \
+    --direction "Outbound" \
+    --source-address-prefixes '*' \
+    --source-port-ranges '*' \
+    --destination-address-prefixes '*' \
+    --destination-port-ranges 5671 8883 443 \
+    --access "Deny" \
+    --protocol "Tcp" \
+    --description "Deny rule to test connectivity behavior."
+
+# Check
+sudo iotedge check
+```
+
+Connections will fail with timeout:
+
+<img src=".assets/timeout2.png" width=600 />
+
+To continue, remove the DENY rule:
+
+```sh
+# Remove the DENY rule
+az network nsg rule delete -g rg-bluefactory --nsg-name nsg-bluefactory-edgegateway -n DenyIoTEdge
+
+# Check
+sudo iotedge check
+```
+
+### DNS
