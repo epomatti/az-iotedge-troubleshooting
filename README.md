@@ -33,7 +33,7 @@ cloud-init status
 # Confirm that the IoT Edge runtime has been installed
 iotedge --version
 
-# Restart the VM to enable any Linux kernel updates
+# Restart the VM to activate any Linux kernel updates
 az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
 ```
 
