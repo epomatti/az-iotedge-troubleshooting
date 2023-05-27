@@ -36,4 +36,4 @@ cp edgegateway/config-template.toml edgegateway/config.toml
 sed -i "s/IOTHUB_HOSTNAME/$iothub_hostname/g" edgegateway/config.toml
 sed -i "s/DEVICE_ID/$device_id/g" edgegateway/config.toml
 scp edgegateway/config.toml "edgegateway@$remote_edgegateway_ip:$remote_target_dir"
-scp edgegateway/edgeconfig.sh "edgegateway@$remote_edgegateway_ip:$remote_target_dir"
+scp edgegateway/edgeConfig.sh "edgegateway@$remote_edgegateway_ip:$remote_target_dir"

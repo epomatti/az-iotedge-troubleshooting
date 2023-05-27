@@ -21,7 +21,7 @@ terraform -chdir="infra" apply -auto-approve
 
 <details>
   <summary>(Optional) Upgrade IoT Hub certificate to V2 (DigiCert)</summary>
-    
+
   ```sh
   az iot hub certificate root-authority set --hub-name "iot-bluefactory" --certificate-authority v2 --yes
   ```
@@ -68,7 +68,7 @@ Connect to the EdgeGateway and complete the configuration:
 
 ```sh
 # Run via SSH
-sudo bash edgeconfig.sh
+sudo bash edgeConfig.sh
 
 # Verify the results
 sudo iotedge system status

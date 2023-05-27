@@ -1,0 +1,15 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "bluefactory",
+        "edgegateway",
+        "iotedge",
+        "iothub",
+        "tshoot"
+    ],
+    "ignoreWords": [],
+    "import": []
+}
