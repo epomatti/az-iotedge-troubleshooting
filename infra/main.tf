@@ -5,6 +5,9 @@ terraform {
       version = "3.58.0"
     }
   }
+  backend "local" {
+    path = ".workspace/terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
@@ -42,7 +45,7 @@ module "iothub" {
   sku_capacity = var.iothub_sku_capacity
 }
 
-### Network ###
+# ### Network ###
 module "network" {
   source              = "./modules/network"
   workload            = var.workload
@@ -51,16 +54,16 @@ module "network" {
   private_zone_domain = local.private_zone_domain
 }
 
-### Network Security Group ###
-module "nsg" {
-  source   = "./modules/nsg"
-  group    = azurerm_resource_group.default.name
-  location = azurerm_resource_group.default.location
-  workload = var.workload
-  subnet   = module.network.subnet_id
-}
+# ### Network Security Group ###
+# module "nsg" {
+#   source   = "./modules/nsg"
+#   group    = azurerm_resource_group.default.name
+#   location = azurerm_resource_group.default.location
+#   workload = var.workload
+#   subnet   = module.network.subnet_id
+# }
 
-### Iot Edge ###
+### Edge Gateway ###
 
 
 
