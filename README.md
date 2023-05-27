@@ -97,6 +97,14 @@ To check the deployment in the EdgeGateway device:
 iotedge list
 ```
 
+Check and confirm that everything is OK:
+
+```sh
+sudo iotedge check
+```
+
 ## Troubleshooting
 
+### Restricted Public Access
 
+Connect to the Portal and disable public access.

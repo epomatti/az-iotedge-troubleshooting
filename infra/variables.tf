@@ -10,7 +10,7 @@ variable "location" {
 
 variable "iothub_sku_name" {
   type    = string
-  default = "F1"
+  default = "S1"
 }
 
 variable "iothub_sku_capacity" {

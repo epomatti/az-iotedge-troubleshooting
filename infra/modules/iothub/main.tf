@@ -2,7 +2,6 @@ resource "azurerm_iothub" "default" {
   name                = "iot-${var.workload}"
   resource_group_name = var.group
   location            = var.location
-  # min_tls_version     = "1.2"
 
   sku {
     name     = var.sku_name
