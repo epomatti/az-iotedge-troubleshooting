@@ -332,3 +332,4 @@ TODO: Change IP forwarding
 
 - [Several IoT Edge utilities](https://sandervandevelde.wordpress.com/category/docker/)
 - [IoT ELMS](https://github.com/Azure-Samples/iotedge-logging-and-monitoring-solution)
+- [IoT Edge runtime host network mode](https://github.com/Azure/iotedge/issues/5935)
