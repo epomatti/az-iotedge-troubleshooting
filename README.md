@@ -71,3 +71,21 @@ sudo iotedge system status
 sudo iotedge system logs
 sudo iotedge check
 ```
+
+### 9 - Deploy the modules
+
+```sh
+az iot edge deployment create --deployment-id "gateway" \
+    --hub-name $(jq -r .iothub_name infra/output.json) \
+    --content "@edgegateway/deployments/gateway.json" \
+    --labels '{"Release":"001"}' \
+    --target-condition "deviceId='EdgeGateway'" \
+    --priority 10
+```
+
+Check the portal and the IoT device:
+
+```sh
+# List the modules in the Azure VM
+iotedge list
+```
