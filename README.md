@@ -181,3 +181,50 @@ sudo iotedge system restart
 # Check
 sudo iotedge check
 ```
+
+### Remove the Device
+
+Let's try and remove the Device Registration from IoT Hub.
+
+```sh
+# Delete the device
+az iot hub device-identity delete --hub-name iot-bluefactory --device-id EdgeGateway
+
+# Restart
+sudo iotedge system restart
+
+# Check
+sudo iotedge check
+```
+
+In this scenario, the check tool will present only one error, while connectivity remains ok:
+
+<img src=".assets/connectivity1.png" width=600 />
+
+To re-register the device:
+
+```sh
+# Register the device
+bash scripts/registerEdgeGatewayDevice.sh
+
+# Restart
+sudo iotedge system restart
+
+# Check
+sudo iotedge check
+```
+
+Previous deployments have to be applied again:
+
+```sh
+# Create the deployment
+az iot edge deployment create --deployment-id "gateway-reapply" \
+    --hub-name $(jq -r .iothub_name infra/output.json) \
+    --content "@edgegateway/deployments/gateway.json" \
+    --labels '{"Release":"001"}' \
+    --target-condition "deviceId='EdgeGateway'" \
+    --priority 10
+
+# List the containers
+iotedge list
+```
