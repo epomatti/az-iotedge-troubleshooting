@@ -22,7 +22,7 @@ variable "iothub_sku_capacity" {
 
 variable "edgegateway_vm_size" {
   type    = string
-  default = "Standard_B1s"
+  default = "Standard_B1ms"
 }
 
 variable "edgegateway_image_offer" {
