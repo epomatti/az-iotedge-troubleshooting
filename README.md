@@ -6,7 +6,7 @@ Troubleshooting IoT Edge connectivity and configuration.
 
 ## Infrastructure
 
-### 1 - Create the infrastructure
+### 1 - Create the resources
 
 Generate the test-only certificate chain:
 
