@@ -107,4 +107,18 @@ sudo iotedge check
 
 ### Restricted Public Access
 
-Connect to the Portal and disable public access.
+Connect to the Portal and disable public access. Do not yet apply to the built-in endpoint.
+
+Run the check:
+
+```sh
+sudo iotedge check
+```
+
+Now apply turn-on the toggle to apply to the built-in endpoint
+
+Run the check:
+
+```sh
+sudo iotedge check
+```
