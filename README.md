@@ -115,7 +115,7 @@ Run the check:
 sudo iotedge check
 ```
 
-Now apply turn-on the toggle to apply to the built-in endpoint
+Now apply turn-on the toggle to apply to the built-in endpoint.
 
 Run the check:
 
