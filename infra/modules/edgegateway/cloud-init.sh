@@ -3,6 +3,8 @@
 export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 
+sudo hostnamectl set-hostname edgegateway.bluefactory.local
+
 sudo apt update
 sudo apt upgrade -y
 
