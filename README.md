@@ -230,3 +230,47 @@ az iot edge deployment create --deployment-id "gateway-reapply" \
 # List the containers
 iotedge list
 ```
+
+### Firewall ports block
+
+This test will demonstrate the results when outgoing connectivity is blocked in the Firewall.
+
+Delete the IoT Edge outbound allow rule in the NSG:
+
+```sh
+# Delete rule
+az network nsg rule delete -g rg-bluefactory --nsg-name nsg-bluefactory-edgegateway -n AllowIoTEdge
+
+# Restart
+sudo iotedge system restart
+
+# Check
+sudo iotedge check
+```
+
+It is possible to identify several failures for this test.
+
+> ℹ️ One aspect of this test is that the test takes a lot of time due to timeout for each connection
+
+<img src=".assets/connectivity1.png" width=600 />
+
+Recreate the rule:
+
+```sh
+# Create the IoT Edge rule
+az network nsg rule create -g rg-bluefactory --nsg-name nsg-bluefactory-edgegateway -n AllowIoTEdge \
+    --priority 110 \
+    --source-address-prefixes '*' \
+    --source-port-ranges '*' \
+    --destination-address-prefixes '*' \
+    --destination-port-ranges 5671 8883 443 \
+    --access "Allow" \
+    --protocol "Tcp" \
+    --description "Allows IoT Edge connectivity ports."
+
+# Restart
+sudo iotedge system restart
+
+# Check
+sudo iotedge check
+```

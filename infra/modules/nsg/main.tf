@@ -24,7 +24,7 @@ resource "azurerm_network_security_group" "edgegateway_allow_ssh" {
 
   security_rule {
     name                       = "AllowHTTP"
-    description                = "This is not required by IoT Edge. Allowing for development purposes only"
+    description                = "This is not required by IoT Edge. Allowing for development purposes only."
     priority                   = 100
     direction                  = "Outbound"
     access                     = "Allow"
@@ -37,7 +37,7 @@ resource "azurerm_network_security_group" "edgegateway_allow_ssh" {
 
   security_rule {
     name                       = "AllowIoTEdge"
-    description                = "Allows IoT Edge to connect with HTTPS"
+    description                = "Allows IoT Edge connectivity ports."
     priority                   = 110
     direction                  = "Outbound"
     access                     = "Allow"
