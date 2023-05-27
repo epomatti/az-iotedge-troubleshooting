@@ -17,8 +17,6 @@ provider "azurerm" {
 
 locals {
   private_zone_domain = "bluefactory.local"
-  group               = azurerm_resource_group.default.name
-  location            = azurerm_resource_group.default.location
 }
 
 ### Group ###
@@ -30,16 +28,16 @@ resource "azurerm_resource_group" "default" {
 ### ACR ###
 module "acr" {
   source   = "./modules/acr"
-  group    = local.group
-  location = local.location
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
 }
 
 ### IoT Hub ###
 module "iothub" {
   source       = "./modules/iothub"
   workload     = var.workload
-  group        = local.group
-  location     = local.location
+  group        = azurerm_resource_group.default.name
+  location     = azurerm_resource_group.default.location
   sku_name     = var.iothub_sku_name
   sku_capacity = var.iothub_sku_capacity
 }
@@ -48,22 +46,21 @@ module "iothub" {
 module "network" {
   source              = "./modules/network"
   workload            = var.workload
-  group               = local.group
-  location            = local.location
+  group               = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
   private_zone_domain = local.private_zone_domain
 }
-
 
 ### Network Security Group ###
 module "nsg" {
   source   = "./modules/nsg"
-  group    = local.group
-  location = local.location
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
   workload = var.workload
   subnet   = module.network.subnet_id
 }
 
-# ### Iot Edge ###
+### Iot Edge ###
 
 
 
