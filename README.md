@@ -327,6 +327,52 @@ TODO: Fail with DNS
 
 TODO: Change IP forwarding
 
+## IoT Edge Diagnostics - Connectivity Checks
+
+Here I'll document how `iotedge check` works when doing **connectivity checks**.
+
+As explained in the [Diagnose IoT Edge devices](https://learn.microsoft.com/en-us/azure/iot-edge/troubleshoot?view=iotedge-1.4) page, the CLI makes use of the container `mcr.microsoft.com/azureiotedge-diagnostics:latest`.
+
+You can verify that by running listing the docker images in your IoT Edge device:
+
+```
+$ sudo docker image ls
+REPOSITORY                                       TAG       IMAGE ID       CREATED        SIZE
+mcr.microsoft.com/azureiotedge-diagnostics       1.4.10    c23f7741d317   45 hours ago   91.8MB
+mcr.microsoft.com/azureiotedge-agent             1.4       793f1cf53dbe   45 hours ago   179MB
+mcr.microsoft.com/azureiotedge-hub               1.4       d3ef8bfe20f8   45 hours ago   181MB
+marketplace.azurecr.io/garantiadata/redis-edge   latest    d6f69e2e2942   4 years ago    125MB
+```
+
+What happens under the hood is that this block of Rust code will trigger the Diagnostics program.
+
+Sample from [`container_connect_upstream.rs`](https://github.com/Azure/iotedge/blob/main/edgelet/iotedge/src/check/checks/container_connect_upstream.rs):
+
+```rust
+self.diagnostics_image_name = Some(check.diagnostics_image_name.clone());
+args.extend([
+    &diagnostics_image_name,
+    "dotnet",
+    "IotedgeDiagnosticsDotnet.dll",
+    "upstream",
+    "--hostname",
+    upstream_hostname,
+    "--port",
+    &port,
+]);
+```
+
+The library handling the diagnostic connectivity is written in C#.
+
+If the request is not HTTPS (`port != "443"`), then a `TcpClient` is created:
+
+```csharp
+TcpClient client = new TcpClient();
+await client.ConnectAsync(hostname, int.Parse(port));
+client.GetStream();
+```
+
+For HTTPS requests or more details, check the class [`Program.cs`](https://github.com/Azure/iotedge/blob/main/edge-modules/iotedge-diagnostics-dotnet/src/Program.cs).
 
 ## Utilities
 
