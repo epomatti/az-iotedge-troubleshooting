@@ -111,7 +111,9 @@ All connectivity checks should be:
 
 ### Restrict Public Access
 
-Connect to the Portal and disable public access. Do not yet apply to the built-in endpoint. Run the check:
+Connect to the Portal and disable public access.
+
+Do not yet apply to the built-in endpoint. Run the check:
 
 ```sh
 # Restart
@@ -139,7 +141,7 @@ This test demonstrates that even when blocking all traffic, including the built-
 
 <img src=".assets/connectivity1.png" width=600 />
 
-After restarting the VM, one error was shown on configuration:
+After restarting the VM or IoT Edge, one error was shown in the configuration:
 
 <img src=".assets/error1.png" width=600 />
 
@@ -168,6 +170,8 @@ sudo iotedge check
 It was possible to demonstrate that no impact occurred when removing the main certificate:
 
 <img src=".assets/connectivity1.png" width=600 />
+
+This is because the connectivity check will be limited to TCP, the application layer is not verified.
 
 Re-create the certificate:
 
@@ -200,6 +204,8 @@ sudo iotedge check
 In this scenario, the check tool will present only one error, while connectivity remains ok:
 
 <img src=".assets/error2.png" width=600 />
+
+Again, because connectivity checks only check TCP, this part is OK.
 
 <img src=".assets/connectivity1.png" width=600 />
 
@@ -286,7 +292,7 @@ sudo iotedge check
 
 ### Origin restriction
 
-Now let's change the origin parameters to DENY immediately:
+Now let's change the origin parameters to DENY outbound access for the IoT required ports:
 
 ```sh
 # Create a DENY rule with priority 101
@@ -309,7 +315,7 @@ Connections will fail with timeout:
 
 <img src=".assets/timeout2.png" width=600 />
 
-To continue, remove the DENY rule:
+Rollback the change, remove the DENY rule:
 
 ```sh
 # Remove the DENY rule
@@ -323,7 +329,7 @@ sudo iotedge check
 
 The connectivity check for the identity service runs on top of `aziotctl` binary.
 
-In the code [`mode.rs`](https://github.com/Azure/iotedge/blob/main/edgelet/iotedge/src/check/mod.rs)
+In the code [`mode.rs`](https://github.com/Azure/iotedge/blob/main/edgelet/iotedge/src/check/mod.rs) we can locate the command:
 
 ```rust
 let aziot_check_out = tokio::process::Command::new(aziot_bin)
@@ -339,7 +345,7 @@ The command runs like this:
 aziotctl check-list
 ```
 
-Here is a TLS test on a MQTT port:
+Here is a TLS example on a MQTT port using `openssl`:
 
 ```sh
 openssl s_client -connect iot-bluefactory.azure-devices.net:8883 -brief
@@ -349,11 +355,11 @@ This particular code has it's own repository: https://github.com/Azure/iot-ident
 
 ## IoT Edge Diagnostics - Connectivity Checks
 
-Here I'll document how `iotedge check` works when doing **connectivity checks**.
+Here I'll document how `iotedge check` works when doing connectivity checks.
 
 As explained in the [Diagnose IoT Edge devices](https://learn.microsoft.com/en-us/azure/iot-edge/troubleshoot?view=iotedge-1.4) page, the CLI makes use of the container `mcr.microsoft.com/azureiotedge-diagnostics:latest`.
 
-You can verify that by running listing the docker images in your IoT Edge device:
+You can verify that by listing the docker images in your IoT Edge device:
 
 ```
 $ sudo docker image ls
@@ -364,7 +370,7 @@ mcr.microsoft.com/azureiotedge-hub               1.4       d3ef8bfe20f8   45 hou
 marketplace.azurecr.io/garantiadata/redis-edge   latest    d6f69e2e2942   4 years ago    125MB
 ```
 
-What happens under the hood is that this block of Rust code will trigger the Diagnostics program.
+What happens under the hood is that this block of Rust code will run the Diagnostics program.
 
 Sample from [`container_connect_upstream.rs`](https://github.com/Azure/iotedge/blob/main/edgelet/iotedge/src/check/checks/container_connect_upstream.rs):
 
