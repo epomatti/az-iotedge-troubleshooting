@@ -372,6 +372,19 @@ await client.ConnectAsync(hostname, int.Parse(port));
 client.GetStream();
 ```
 
+You can build and run it directly (.NET Core 6.0 is required):
+
+```sh
+# Clone and cd into the diagnostics code
+cd edge-modules/iotedge-diagnostics-dotnet
+
+# Build the project
+dotnet publish
+
+# Run the program
+dotnet bin/Debug/net6.0/IotedgeDiagnosticsDotnet.dll upstream --hostname iot-bluefactory.azure-devices.net --port 5671
+```
+
 For HTTPS requests or more details, check the class [`Program.cs`](https://github.com/Azure/iotedge/blob/main/edge-modules/iotedge-diagnostics-dotnet/src/Program.cs).
 
 ## Utilities
