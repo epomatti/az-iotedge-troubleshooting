@@ -339,6 +339,12 @@ The command runs like this:
 aziotctl check-list
 ```
 
+Here is a TLS test on a MQTT port:
+
+```sh
+openssl s_client -connect iot-bluefactory.azure-devices.net:8883 -brief
+```
+
 This particular code has it's own repository: https://github.com/Azure/iot-identity-service
 
 ## IoT Edge Diagnostics - Connectivity Checks
