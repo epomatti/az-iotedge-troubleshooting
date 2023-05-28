@@ -80,7 +80,7 @@ sudo iotedge check
 
 ### 3 - Deploy the modules
 
-Now that the device is properly registered and connect with IoT Hub, create a deployment:
+Now that the device is properly registered and connected with IoT Hub, create a deployment:
 
 ```sh
 az iot edge deployment create --deployment-id "gateway" \
