@@ -4,6 +4,8 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
+        "aziot",
+        "aziotctl",
         "bluefactory",
         "edgegateway",
         "iotedge",

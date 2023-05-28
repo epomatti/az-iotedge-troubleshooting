@@ -319,13 +319,32 @@ az network nsg rule delete -g rg-bluefactory --nsg-name nsg-bluefactory-edgegate
 sudo iotedge check
 ```
 
-### DNS
+### TODO:
 
-TODO: Fail with DNS
+- DNS
+- Docker IP forwarding on/off
 
-### Docker Forward
+## IoT Edge Diagnostics - Identity (aziot-identity-service)
 
-TODO: Change IP forwarding
+The connectivity check for the identity service runs on top of `aziotctl` binary.
+
+In the code [`mode.rs`](https://github.com/Azure/iotedge/blob/main/edgelet/iotedge/src/check/mod.rs)
+
+```rust
+let aziot_check_out = tokio::process::Command::new(aziot_bin)
+    .arg("check-list")
+    .arg("--output=json")
+    .output()
+    .await;
+```
+
+The command runs like this:
+
+```sh
+aziotctl check-list
+```
+
+This particular code has it's own repository: https://github.com/Azure/iot-identity-service
 
 ## IoT Edge Diagnostics - Connectivity Checks
 
