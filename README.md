@@ -45,7 +45,7 @@ iotedge --version
 Restart the VM to activate any Linux kernel updates:
 
 ```sh
-az vm restart -n "vm-bluefactory-edgegateway" -g "rg-bluefactory"
+az vm restart -g "rg-bluefactory" -n "vm-bluefactory-edgegateway"
 ```
 
 ### 2 - Register the IoT Edge device
